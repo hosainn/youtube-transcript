@@ -1,0 +1,22 @@
+#videoPlayerContainer {
+    background: #00BEFF;
+    width: 600px;
+    height: 280px;
+    margin-top: 30px;
+    border: 1px solid white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#generalViewContainer {
+    display: flex;
+    justify-content: center;
+}
+
+#playerTextContainer {
+    padding-top: 4px;
+    padding-left: 16px;
+    font-size: 15pt;
+    /* color: white; */
+}
