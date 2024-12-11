@@ -1,10 +1,10 @@
 "use client"
 
 import React from 'react';
-import { useState } from 'react';
+import { useContext, useRef } from 'react';
 import Image from 'next/image'
 import YouTube from "react-youtube";
-
+import { HomePageContext } from "../../page.js";
 import "./videoplayer.css";
 
 const getGeneralView = () => {
@@ -18,18 +18,22 @@ const getGeneralView = () => {
             />
             <span id="playerTextContainer">Youtube video player</span>
         </div>
-
     )
 }
 
-const getVideoPlayer = (videoId) => {
+const onReady = (event, playerRef, setPlayerRef) => {
+    playerRef.current = event.target;
+    setPlayerRef(playerRef)
+}
+
+const getVideoPlayer = (videoId, playerRef, setPlayerRef) => {
     return (
         <YouTube
-            // onReady={onReady}
-            videoId="UeYmRKWhwFI"
+            onReady={(event) => onReady(event, playerRef, setPlayerRef)}
+            videoId={videoId}
             opts={{
-                height: "250",   // Set the height
-                width: "600",    // Set the width
+                height: "250",
+                width: "600",
                 playerVars: {
                     autoplay: 1,
                     mute: 1, //Chrome is blocking autoplay https://developer.chrome.com/blog/autoplay
@@ -40,13 +44,15 @@ const getVideoPlayer = (videoId) => {
 }
 
 const VideoPlayer = () => {
-    const [videoId, setVideoId] = useState(null)
+    const playerRef = useRef(null);
+    let { transcriptData, setPlayerRef } = useContext(HomePageContext);
 
     return (
         <div id="videoPlayerContainer">
-            {videoId ? getVideoPlayer(videoId) : getGeneralView()}
+            {transcriptData.videoId ?
+                getVideoPlayer(transcriptData.videoId, playerRef, setPlayerRef) : getGeneralView()}
         </div>
     )
 }
 
-export default VideoPlayer
+export default VideoPlayer;

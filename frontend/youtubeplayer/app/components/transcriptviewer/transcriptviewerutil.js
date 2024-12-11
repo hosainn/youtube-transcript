@@ -1,7 +1,3 @@
-import getData from './dumydata';
-
-const transcriptData = getData();
-
 const formatTime = (timeInSeconds) => {
     const hours = Math.floor(timeInSeconds / 3600)
         .toString()
@@ -15,27 +11,29 @@ const formatTime = (timeInSeconds) => {
     return `${hours}:${minutes}:${seconds}`;
 };
 
-const groupedTranscript = transcriptData.reduce((acc, item) => {
-    const time = Math.floor(item.start);
-    if (!acc[time]) {
-        acc[time] = [];
-    }
-    acc[time].push(item);
-    return acc;
-}, {});
+const getGroupedTranscript = (transcript) => {
+    return transcript.reduce((acc, item) => {
+        const time = Math.floor(item.start);
+        if (!acc[time]) {
+            acc[time] = [];
+        }
+        acc[time].push(item);
+        return acc;
+    }, {});
+}
 
 const getHighlightColor = (currentTime, line) => {
     return currentTime >= Math.floor(line.start) &&
         currentTime < Math.floor(line.start + line.duration)
-        ? 
+        ?
         "#f0f0f0"
-        : 
+        :
         "transparent"
 };
 
 const TranscriptViewerUtil = {
     formatTime: formatTime,
-    groupedTranscript: groupedTranscript,
+    getGroupedTranscript: getGroupedTranscript,
     getHighlightColor: getHighlightColor
 };
 
