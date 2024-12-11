@@ -1,7 +1,13 @@
+import VideoInputForm from "./components/videoinputform/VideoInputForm";
+import VideoPlayer from "./components/videoplayer/VideoPlayer";
+import TranscriptViewer from "./components/transcriptviewer/TranscriptViewer";
+
 export default function Home() {
   return (
-    <>
-      <h1>Helo world</h1>
-    </>
+    <div>
+      <VideoInputForm />
+      <VideoPlayer />
+      <TranscriptViewer />
+    </div>
   );
 }
