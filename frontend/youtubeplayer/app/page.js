@@ -6,9 +6,12 @@ import styles from "./page.module.css";
 export default function Home() {
   return (
     <div id={styles.appContainer}>
-      <VideoInputForm />
-      <VideoPlayer />
-      <TranscriptViewer />
+      <div id={styles.appWrapper}>
+        <VideoInputForm />
+        <VideoPlayer />
+        <TranscriptViewer />
+      </div>
     </div>
+
   );
 }

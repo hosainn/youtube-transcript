@@ -1,12 +1,13 @@
 #videoPlayerContainer {
     background: #00BEFF;
     width: 600px;
-    height: 280px;
+    height: 250px;
     margin-top: 30px;
     border: 1px solid white;
     display: flex;
     justify-content: center;
     align-items: center;
+    border-radius: 10px;
 }
 
 #generalViewContainer {

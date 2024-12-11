@@ -10,7 +10,12 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 18pt;
+    font-size: 15pt;
+    /* margin-left: 50px; */
+}
+
+#urlText {
+    margin-left: 70px;
 }
 
 #inputFieldContainer {
@@ -39,5 +44,13 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 18pt;
+    font-size: 15pt;
+    /* margin-right: 33px; */
+}
+
+#submitter {
+    margin-right: 45px;
+}
+#submitButton {
+    cursor: pointer;
 }

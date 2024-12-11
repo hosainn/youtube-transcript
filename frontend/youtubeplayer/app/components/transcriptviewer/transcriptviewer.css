@@ -1,0 +1,58 @@
+#transcriptContaier {
+    margin-top: 15px;
+    padding-bottom: 10px;
+    height: 220px;
+    border: 1px solid white;
+    border-radius: 10px;
+    width: 600px;
+
+}
+
+#transcriptWrapper {
+    height: 180px;
+    overflow-y: scroll;
+    width: 550px;
+    margin-left: 15px;
+    margin-right: 15px;
+    /* padding-left: 10px;
+    padding-right: 10px; */
+}
+
+#transcriptTitle {
+    margin-top: 10px;
+    width: 600px;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    font-size: 15pt;
+    /* padding-bottom: 10px; */
+}
+
+#liveTranscriptContainer {
+    padding-top: 15px;
+}
+
+.singleTranscriptContiner {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 5px;
+}
+
+.currentTimeText {
+    width: 60px;
+    text-align: right;
+    margin-right: 10px;
+    font-size: 0.9em,
+}
+
+#transcriptWrapper::-webkit-scrollbar {
+    border: 1px solid white;
+    background: white;
+    border-radius: 2px;
+}
+
+#transcriptWrapper::-webkit-scrollbar-thumb {
+    border: 2px solid white;
+    background: gray;
+    border-radius: 2px;
+}

@@ -28,7 +28,7 @@ const getVideoPlayer = (videoId) => {
             // onReady={onReady}
             videoId="UeYmRKWhwFI"
             opts={{
-                height: "280",   // Set the height
+                height: "250",   // Set the height
                 width: "600",    // Set the width
                 playerVars: {
                     autoplay: 1,

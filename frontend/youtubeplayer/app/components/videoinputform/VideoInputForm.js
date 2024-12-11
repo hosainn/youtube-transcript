@@ -5,7 +5,7 @@ const VideoInputForm = () => {
     return (
         <div id="inputFormContaier">
             <div id="urlTextContiner">
-                <div><span>Url:</span></div>
+                <div id="urlText"><span>Url:</span></div>
             </div>
             <div id="inputFieldContainer">
                 <input
@@ -15,8 +15,8 @@ const VideoInputForm = () => {
             </div>
             <div id="submitterTextContainer">
                 <div>
-                    <span className="submitter">
-                        Submit
+                    <span id="submitter">
+                        <span id="submitButton">Submit</span>
                     </span>
                 </div>
             </div>
