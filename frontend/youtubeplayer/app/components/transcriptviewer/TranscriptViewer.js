@@ -10,7 +10,7 @@ const renderTimeFormatView = (currentTime, time) => {
     return (
         <span
             className='currentTimeText'
-            style={{ color: currentTime === parseInt(time, 10) ? "#000" : "#888" }}
+            style={{ color: currentTime === parseInt(time, 10) ? "#f0f0f0" : "gray" }}
         >
             {TranscriptViewerUtil.formatTime(parseInt(time, 10))}
         </span>
@@ -25,11 +25,11 @@ const renderHighlightedLine = (lines, currentTime) => {
                     key={idx}
                     data-start={Math.floor(line.start)}
                     style={{
-                        backgroundColor:
+                        color:
                             TranscriptViewerUtil.getHighlightColor(currentTime, line)
                     }}
                 >
-                    <strong>{line.text}</strong>
+                    {line.text}
                 </div>
             ))}
         </div>
@@ -79,7 +79,7 @@ const TranscriptViewer = () => {
                     const time = playerRef.current.getCurrentTime();
                     setCurrentTime(Math.floor(time));
                 }
-            }, 500);
+            }, 100);
             return () => clearInterval(interval);
         }
 

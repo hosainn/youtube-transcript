@@ -28,7 +28,7 @@ const getHighlightColor = (currentTime, line) => {
         ?
         "#f0f0f0"
         :
-        "transparent"
+        "gray"
 };
 
 const TranscriptViewerUtil = {

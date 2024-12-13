@@ -2,6 +2,7 @@
     width: 645px;
     height: 30px;
     display: flex;
+    color: white;
 }
 
 #urlTextContiner {
@@ -33,7 +34,7 @@
     border: 1px solid white;
     border-radius: 5px;
     padding-left: 4px;
-    background: black;
+    background: #171717;
     color: white;
 
 }

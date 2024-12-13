@@ -5,6 +5,8 @@
     border: 1px solid white;
     border-radius: 10px;
     width: 600px;
+    background: #171717;
+    color: white;
 
 }
 
@@ -30,6 +32,7 @@
 
 #liveTranscriptContainer {
     padding-top: 15px;
+    font-size: 12pt;
 }
 
 .singleTranscriptContiner {
@@ -53,6 +56,6 @@
 
 #transcriptWrapper::-webkit-scrollbar-thumb {
     border: 2px solid white;
-    background: gray;
+    background: #171717;
     border-radius: 2px;
 }
