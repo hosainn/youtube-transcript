@@ -6,7 +6,7 @@ from sqlalchemy.orm import Session
 from youtube_transcript_api import (
     YouTubeTranscriptApi,
     TranscriptsDisabled,
-    NoTranscriptFound,
+    NoTranscriptAvailable,
     VideoUnavailable
 )
 from config.logconfig import logger
@@ -54,12 +54,12 @@ def get_youtube_transcript(
         logger.error(error_msg)
         logger.error(str(e))
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=error_msg)
-    except NoTranscriptFound as e:
+    except NoTranscriptAvailable as e:
         error_msg = f"No transcript found for this video id: {video_id}"
         logger.error(error_msg)
         logger.error(str(e))
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=error_msg)
-    except VideoUnavailable:
+    except VideoUnavailable as e:
         error_msg = f"Video is unavailable for this video id: {video_id}"
         logger.error(error_msg)
         logger.error(str(e))
