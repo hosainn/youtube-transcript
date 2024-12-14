@@ -1,9 +1,13 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from youtube_transcript_api import YouTubeTranscriptApi
+from middleware import GeneralExceptionMiddleware, RequestLogMiddleware
 from config.logconfig import logger
 
 app = FastAPI()
+
+app.add_middleware(GeneralExceptionMiddleware)
+app.add_middleware(RequestLogMiddleware)
 
 origins = [
     "http://localhost",
