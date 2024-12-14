@@ -3,7 +3,7 @@ from pydantic_settings import BaseSettings
 
 class Setting(BaseSettings):
     ENVIRONMENT: str = "dev"
+    DATABASE_URL: str
 
-@lru_cache
 def get_setting():
     return Setting()

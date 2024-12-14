@@ -1,8 +1,23 @@
+from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from youtube_transcript_api import YouTubeTranscriptApi
 from middleware import GeneralExceptionMiddleware, RequestLogMiddleware
 from config.logconfig import logger
+from database.session import engine
+from database.table import create_table
+from models import Base
+
+Base.metadata.create_all(bind=engine)
+
+# @asynccontextmanager
+# async def lifespan(_app: FastAPI):
+#     logger.info("Creating............")
+#     await create_table()
+#     yield
+#     if engine is not None:
+#         logger.info("Closing..........")
+#         engine.dispose()
 
 app = FastAPI()
 

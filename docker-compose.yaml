@@ -7,3 +7,22 @@ services:
     volumes:
       - ./backend/app:/code
     image: transcript-api
+    depends_on:
+      youtubeplayerdb:
+        condition: service_healthy
+    environment:
+      - DATABASE_URL=mysql+pymysql://root:root@db_host/youtubetranscriptdb
+
+  youtubeplayerdb:
+    image: mysql:latest
+    restart: always
+    hostname: db_host
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=youtubetranscriptdb
+    healthcheck:
+      test: [ "CMD-SHELL", "mysqladmin ping -h localhost" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
