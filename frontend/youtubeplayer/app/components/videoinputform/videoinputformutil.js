@@ -27,7 +27,7 @@ const errorExtractor = async (error, errorHanler) => {
 const fetchTranscript = (
     videoId, successHandler, errorHanler, apiVersion = "v1"
 ) => {
-    const url = `http://127.0.0.1:8000/api/${apiVersion}/transcirpt/${videoId}`;
+    const url = `${process.env.NEXT_PUBLIC_BASE_URL}/api/${process.env.NEXT_PUBLIC_API_VERSION}/transcirpt/${videoId}`;
     fetch(url)
         .then((response) => {
             return response.ok ? response.json() : Promise.reject(response);

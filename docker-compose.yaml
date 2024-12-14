@@ -1,6 +1,6 @@
 version: '3'
 services:
-  web:
+  backend:
     build: ./backend
     ports:
       - "8000:80"
@@ -27,3 +27,14 @@ services:
       timeout: 5s
       retries: 5
       start_period: 30s
+
+  frontend:
+    build:
+      context: ./frontend/youtubeplayer
+      dockerfile: Dockerfile
+      args:
+        NEXT_PUBLIC_BASE_URL: "http://0.0.0.0:8000"
+        NEXT_PUBLIC_API_VERSION: "v1"
+    ports:
+      - "3000:3000"
+    image: youtubeplayer
