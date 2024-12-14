@@ -1,6 +1,10 @@
 const verifyYoutubeUrl = (url) => {
     let regex = /(youtu.*be.*)\/(watch\?v=|embed\/|v|shorts|)(.*?((?=[&#?])|$))/gm;
-    let videoId = regex.exec(url)[3];
+    let extractor = regex.exec(url);
+    if (extractor === null) {
+        return null;
+    }
+    let videoId = extractor[3];
     if (videoId && videoId.length === 11) {
         return videoId
     }

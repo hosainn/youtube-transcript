@@ -1,0 +1,9 @@
+#errorViewerContainer {
+    margin-top: 10px;
+    color: red;
+}
+
+#messageViewContainer {
+    margin-top: 10px;
+    color: orange;
+}

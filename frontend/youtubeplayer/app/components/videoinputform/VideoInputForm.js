@@ -3,39 +3,42 @@
 import React from 'react'
 import { useContext, useState } from 'react'
 import "./videoinput.css"
-import ErrorViewer from './errorviewer/ErrorViewer'
+import MessageViewer from './messageviewer/MessageViewer'
 import VideoInputFormUtil from './videoinputformutil';
 import { HomePageContext } from "../../page.js";
 
 const VideoInputForm = () => {
     const [videoUrl, setVideoUrl] = useState("");
-    const [error, setError] = useState("");
+    const [message, setMessage] = useState({ message: "", type: null });
     const [currentVideoId, setCurrentVideoId] = useState(null);
 
     let { setTranscriptData } = useContext(HomePageContext);
 
+    const messageSetter = (msg, type = "error") => {
+        setMessage({ message: msg, type: type });
+    }
 
     const transcriptHandler = (data, videoId) => {
         setCurrentVideoId(videoId);
-        setError("");
+        messageSetter("", null);
         setTranscriptData({ videoId: videoId, transcript: data });
     }
 
     const onSubmitHandler = () => {
         let trimmedVideoUrl = videoUrl.trim()
         if (trimmedVideoUrl === "") {
-            setError("Please provide youtube video url");
+            messageSetter("Please provide youtube video url");
         } else {
             let videoId = VideoInputFormUtil.verifyYoutubeUrl(trimmedVideoUrl);
             if (videoId === null) {
-                setError("Please provide a valid youtube url");
+                messageSetter("Please provide a valid youtube video url");
             } else if (currentVideoId === videoId) {
-                setError("This video is already loaded!");
+                messageSetter("This video is already loaded!", null);
             } else {
                 VideoInputFormUtil.fetchTranscript(
                     videoId,
                     transcriptHandler,
-                    setError
+                    setMessage
                 );
             }
         }
@@ -43,7 +46,7 @@ const VideoInputForm = () => {
 
     const inputChangeHandler = (event) => {
         setVideoUrl(event.target.value);
-        setError("");
+        setMessage("");
     }
 
     return (
@@ -67,7 +70,7 @@ const VideoInputForm = () => {
                     </div>
                 </div>
             </div>
-            <ErrorViewer errorMessage={error} />
+            <MessageViewer message={message} />
         </>
     )
 }
