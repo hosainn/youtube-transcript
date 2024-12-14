@@ -38,7 +38,7 @@ const VideoInputForm = () => {
                 VideoInputFormUtil.fetchTranscript(
                     videoId,
                     transcriptHandler,
-                    setMessage
+                    messageSetter
                 );
             }
         }
