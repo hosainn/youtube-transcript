@@ -1,7 +1,6 @@
 from functools import lru_cache
 from pydantic_settings import BaseSettings
 
-
 class Setting(BaseSettings):
     ENVIRONMENT: str = "dev"
 
