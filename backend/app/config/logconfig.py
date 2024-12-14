@@ -17,9 +17,9 @@ else:
 formatter = logging.Formatter(fmt="%(asctime)s [%(levelname)s] %(name)s: %(message)s")
 
 file_handler = RotatingFileHandler(
-    "youtube_transcript.log", maxBytes=5 * 1024 * 1024, backupCount=3
+    "/var/log/youtube_transcript.log", maxBytes=5 * 1024 * 1024, backupCount=3
 )
-file_handler = logging.FileHandler("youtube_transcript.log")
+# file_handler = logging.FileHandler("youtube_transcript.log")
 file_handler.setFormatter(formatter)
 file_handler.setLevel(logging.DEBUG)
 logger.addHandler(file_handler)
