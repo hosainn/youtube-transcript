@@ -59,3 +59,10 @@
     background: #171717;
     border-radius: 2px;
 }
+
+#emptyTranscriptView {
+    display: flex;
+    justify-content: center;
+    margin-top: 80px;
+    font-size: 15pt;
+}

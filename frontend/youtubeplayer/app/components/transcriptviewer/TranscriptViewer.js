@@ -4,7 +4,7 @@ import React from 'react'
 import { useContext, useState, useRef, useEffect } from 'react';
 import TranscriptViewerUtil from "./transcriptviewerutil.js";
 import { HomePageContext } from "../../page.js";
-import "./transcriptviewer.css"
+import "./transcriptviewer.css";
 
 const renderTimeFormatView = (currentTime, time) => {
     return (
@@ -85,12 +85,31 @@ const TranscriptViewer = () => {
 
     }, [playerRef])
 
+    const renderTranscriptView = (transcript) => {
+        return (
+            <>
+                <div id="transcriptTitle">Transcripts</div>
+                <div id="transcriptWrapper" ref={transcriptRef}>
+                    {renderGroupTranscript(currentTime, transcript)}
+                </div>
+            </>
+
+        );
+    }
+
+    const renderEmptyTranscriptView = () => {
+        return (
+            <div id="emptyTranscriptView">
+                <span>Please submit youtube video url to see transcript here</span>
+            </div>
+        );
+    }
+
     return (
         <div id="transcriptContaier">
-            <div id="transcriptTitle">Transcripts</div>
-            <div id="transcriptWrapper" ref={transcriptRef}>
-                {renderGroupTranscript(currentTime, transcriptData.transcript)}
-            </div>
+            {Array.isArray(transcriptData.transcript) && transcriptData.transcript.length === 0 ?
+                renderEmptyTranscriptView() : renderTranscriptView(transcriptData.transcript)
+            }
         </div>
     )
 }
