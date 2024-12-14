@@ -7,7 +7,8 @@ from youtube_transcript_api import (
     YouTubeTranscriptApi,
     TranscriptsDisabled,
     NoTranscriptAvailable,
-    VideoUnavailable
+    VideoUnavailable,
+    NoTranscriptFound
 )
 from config.logconfig import logger
 from transcripts_schema import Transcript
@@ -55,6 +56,11 @@ def get_youtube_transcript(
         logger.error(str(e))
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=error_msg)
     except NoTranscriptAvailable as e:
+        error_msg = f"No transcript available for this video id: {video_id}"
+        logger.error(error_msg)
+        logger.error(str(e))
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=error_msg)
+    except NoTranscriptFound as e:
         error_msg = f"No transcript found for this video id: {video_id}"
         logger.error(error_msg)
         logger.error(str(e))
