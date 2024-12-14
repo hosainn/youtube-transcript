@@ -12,6 +12,7 @@ services:
         condition: service_healthy
     environment:
       - DATABASE_URL=mysql+pymysql://root:root@db_host/youtubetranscriptdb
+      - ALLOWED_ORIGINS=http://localhost,http://localhost:3000
 
   youtubeplayerdb:
     image: mysql:latest

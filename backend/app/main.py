@@ -1,34 +1,26 @@
 from contextlib import asynccontextmanager
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
-from youtube_transcript_api import YouTubeTranscriptApi
+from fastapi.exceptions import HTTPException
+from fastapi.responses import JSONResponse
 from middleware import GeneralExceptionMiddleware, RequestLogMiddleware
 from config.logconfig import logger
 from database.session import engine
-from database.table import create_table
 from models import Base
+from config.setting import get_setting
+from api.v1.transcriptrouter import router as transcript_router
+
+setting = get_setting()
+origins = setting.ALLOWED_ORIGINS.split(',')
 
 Base.metadata.create_all(bind=engine)
 
-# @asynccontextmanager
-# async def lifespan(_app: FastAPI):
-#     logger.info("Creating............")
-#     await create_table()
-#     yield
-#     if engine is not None:
-#         logger.info("Closing..........")
-#         engine.dispose()
+app = FastAPI(title="Transcripts api")
 
-app = FastAPI()
+app.include_router(transcript_router, prefix="/api")
 
 app.add_middleware(GeneralExceptionMiddleware)
 app.add_middleware(RequestLogMiddleware)
-
-origins = [
-    "http://localhost",
-    "http://localhost:3000",
-]
-
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
@@ -37,6 +29,10 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+@app.exception_handler(HTTPException)
+async def custom_http_exception_handler(request: Request, exc: HTTPException):
+    return JSONResponse( status_code=exc.status_code, content={"error": exc.detail})
+
 @app.get("/")
 def index():
     logger.debug("Debug message")
@@ -44,9 +40,4 @@ def index():
     logger.warning("Warning message")
     logger.error("Error message")
     logger.critical("Critical message")
-    return {"Hello": "world"}
-
-@app.get("/api/v1/")
-def index(videoId):
-    res = YouTubeTranscriptApi.get_transcript(videoId)
-    return {"videoId": videoId, "transcript": res}
+    return {"status": "green"}

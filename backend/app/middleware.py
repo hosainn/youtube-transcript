@@ -4,14 +4,13 @@ from fastapi.responses import JSONResponse
 from starlette.middleware.base import BaseHTTPMiddleware
 from config.logconfig import logger
 
-
 class GeneralExceptionMiddleware(BaseHTTPMiddleware):
     async def dispatch(self, request: Request, call_next):
         try:
             response = await call_next(request)
             return response
         except Exception as e:
-            logger.error("Failed to process request due to:" + str(e))
+            logger.error("Failed to process request due to:" + str(e), exc_info=True)
             return JSONResponse(
                 {"error": "Internal server error"}, 
                 status_code=status.HTTP_500_INTERNAL_SERVER_ERROR
