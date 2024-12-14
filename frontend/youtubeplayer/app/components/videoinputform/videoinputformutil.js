@@ -7,17 +7,33 @@ const verifyYoutubeUrl = (url) => {
     return null;
 };
 
+const errorExtractor = async (error, errorHanler) => {
+    if (error instanceof TypeError) {
+        errorHanler("Network error or Internal server error");
+    } else {
+        try {
+            let errorResponse = await error.json();
+            errorHanler(errorResponse.error);
+        } catch (e) {
+            errorHanler("Unexpected error occured. Please try again");
+        }
+    }
+}
+
 const fetchTranscript = (
     videoId, successHandler, errorHanler, apiVersion = "v1"
 ) => {
-    const baseUrl = `http://127.0.0.1:8000/api/${apiVersion}`;
-    let url = baseUrl + "?videoId=" + videoId;
+    const url = `http://127.0.0.1:8000/api/${apiVersion}/transcirpt/${videoId}`;
     fetch(url)
         .then((response) => {
             return response.ok ? response.json() : Promise.reject(response);
         })
-        .then(successHandler)
-        .catch(errorHanler);
+        .then((data) => {
+            successHandler(data, videoId)
+        })
+        .catch((error) => {
+            errorExtractor(error, errorHanler);
+        });
 }
 
 const VideoInputFormUtil = {
