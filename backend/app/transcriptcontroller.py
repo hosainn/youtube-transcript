@@ -11,7 +11,7 @@ from youtube_transcript_api import (
     NoTranscriptFound
 )
 from config.logconfig import logger
-from transcripts_schema import Transcript
+from transcriptschema import Transcript
 
 VIDEO_ID_REGEX = re.compile(r'^[a-zA-Z0-9_-]{11}$')
 
@@ -51,22 +51,22 @@ def get_youtube_transcript(
         )
         return transcripts
     except TranscriptsDisabled as e:
-        error_msg = f"Transcripts are disabled for this video id: {video_id}"
-        logger.error(error_msg)
+        error_msg = "Transcripts are disabled for this video"
+        logger.error(error_msg + " id: " + video_id)
         logger.error(str(e))
-        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=error_msg)
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=error_msg)
     except NoTranscriptAvailable as e:
-        error_msg = f"No transcript available for this video id: {video_id}"
-        logger.error(error_msg)
+        error_msg = "No transcript available for this video"
+        logger.error(error_msg + " id: " + video_id)
         logger.error(str(e))
-        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=error_msg)
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=error_msg)
     except NoTranscriptFound as e:
-        error_msg = f"No transcript found for this video id: {video_id}"
-        logger.error(error_msg)
+        error_msg = "No transcript found for this video"
+        logger.error(error_msg + " id: " + video_id)
         logger.error(str(e))
-        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=error_msg)
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=error_msg)
     except VideoUnavailable as e:
-        error_msg = f"Video is unavailable for this video id: {video_id}"
-        logger.error(error_msg)
+        error_msg = "Video is unavailable"
+        logger.error(error_msg + " for this video id: " + video_id)
         logger.error(str(e))
-        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=error_msg)
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=error_msg)

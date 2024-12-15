@@ -2,7 +2,7 @@ from fastapi import APIRouter, Request, Depends, BackgroundTasks
 from transcriptcontroller import validate_video_id, get_youtube_transcript
 from database.session import get_db
 from sqlalchemy.orm import Session
-from transcripts_schema import Transcript
+from transcriptschema import Transcript
 
 router = APIRouter(prefix="/v1/transcirpt")
 
