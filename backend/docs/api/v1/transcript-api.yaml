@@ -1,0 +1,89 @@
+openapi: 3.0.1
+info:
+  title: YouTube Transcript API
+  description: API to retrieve transcripts for YouTube videos.
+  version: 1.0.0
+paths:
+  /api/v1/transcript/{youtube_video_id}:
+    get:
+      summary: Retrieve transcript for a YouTube video
+      parameters:
+        - name: youtube_video_id
+          in: path
+          required: true
+          description: ID of the YouTube video
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response with transcript
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    text:
+                      type: string
+                      description: Transcript text
+                    start:
+                      type: number
+                      format: float
+                      description: Start time of the transcript in seconds
+                    duration:
+                      type: number
+                      format: float
+                      description: Duration for which the text is displayed
+              example:
+                - text: "stop pronouncing the T when you speak"
+                  start: 0.12
+                  duration: 6.6
+        '400':
+          description: Invalid video ID
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+              example:
+                error: "Invalid video id"
+        '404':
+          description: Transcript-related errors
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+              examples:
+                transcriptsDisabled:
+                  summary: Transcripts are disabled for this video
+                  value:
+                    error: "Transcripts are disabled for this video"
+                noTranscript:
+                  summary: No transcript available for this video
+                  value:
+                    error: "No transcript available for this video"
+                noTranscriptsFound:
+                  summary: No transcripts found for this video
+                  value:
+                    error: "No transcripts found for this video"
+                videoUnavailable:
+                  summary: Video is unavailable
+                  value:
+                    error: "Video is unavailable"
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+              example:
+                error: "Internal server error"
