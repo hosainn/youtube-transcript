@@ -30,7 +30,7 @@ services:
 
   frontend:
     build:
-      context: ./frontend/youtubeplayer
+      context: ./frontend
       dockerfile: Dockerfile
       args:
         NEXT_PUBLIC_BASE_URL: "http://0.0.0.0:8000"
