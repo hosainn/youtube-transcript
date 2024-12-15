@@ -1,9 +1,8 @@
 "use client"
 
 import React from 'react'
-import { useContext, useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import TranscriptViewerUtil from "./transcriptviewerutil.js";
-import { HomePageContext } from "../../page.js";
 import "./transcriptviewer.css";
 
 const renderTimeFormatView = (currentTime, time) => {
@@ -52,9 +51,8 @@ const renderGroupTranscript = (currentTime, transcript) => {
     )
 }
 
-const TranscriptViewer = () => {
+const TranscriptViewer = (props) => {
     const [currentTime, setCurrentTime] = useState(0);
-    let { transcriptData, playerRef } = useContext(HomePageContext);
     const transcriptRef = useRef(null);
 
     const scrollToCurrentTranscript = () => {
@@ -73,17 +71,17 @@ const TranscriptViewer = () => {
     }, [currentTime]);
 
     useEffect(() => {
-        if (playerRef) {
+        if (props.playerRef) {
             const interval = setInterval(() => {
-                if (playerRef.current !== null) {
-                    const time = playerRef.current.getCurrentTime();
+                if (props.playerRef.current !== null) {
+                    const time = props.playerRef.current.getCurrentTime();
                     setCurrentTime(Math.floor(time));
                 }
             }, 900);
             return () => clearInterval(interval);
         }
 
-    }, [playerRef])
+    }, [props.playerRef])
 
     const renderTranscriptView = (transcript) => {
         return (
@@ -107,8 +105,8 @@ const TranscriptViewer = () => {
 
     return (
         <div id="transcriptContaier">
-            {Array.isArray(transcriptData.transcript) && transcriptData.transcript.length === 0 ?
-                renderEmptyTranscriptView() : renderTranscriptView(transcriptData.transcript)
+            {Array.isArray(props.transcriptData.transcript) && props.transcriptData.transcript.length === 0 ?
+                renderEmptyTranscriptView() : renderTranscriptView(props.transcriptData.transcript)
             }
         </div>
     )

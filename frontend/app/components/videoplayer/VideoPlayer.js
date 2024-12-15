@@ -1,10 +1,9 @@
 "use client"
 
 import React from 'react';
-import { useContext, useRef } from 'react';
+import { useRef } from 'react';
 import Image from 'next/image'
 import YouTube from "react-youtube";
-import { HomePageContext } from "../../page.js";
 import "./videoplayer.css";
 
 const getGeneralView = () => {
@@ -43,14 +42,17 @@ const getVideoPlayer = (videoId, playerRef, setPlayerRef) => {
     );
 }
 
-const VideoPlayer = () => {
+const VideoPlayer = (props) => {
     const playerRef = useRef(null);
-    let { transcriptData, setPlayerRef } = useContext(HomePageContext);
 
     return (
         <div id="videoPlayerContainer">
-            {transcriptData.videoId ?
-                getVideoPlayer(transcriptData.videoId, playerRef, setPlayerRef) : getGeneralView()}
+            {props.transcriptData.videoId ?
+                getVideoPlayer(
+                    props.transcriptData.videoId, playerRef, props.setPlayerRef
+                )
+                :
+                getGeneralView()}
         </div>
     )
 }

@@ -1,18 +1,15 @@
 "use client"
 
 import React from 'react'
-import { useContext, useState } from 'react'
+import { useState } from 'react'
 import "./videoinputform.css"
 import MessageViewer from './messageviewer/MessageViewer'
 import VideoInputFormUtil from './videoinputformutil';
-import { HomePageContext } from "../../page.js";
 
-const VideoInputForm = () => {
+const VideoInputForm = (props) => {
     const [videoUrl, setVideoUrl] = useState("");
     const [message, setMessage] = useState({ message: "", type: null });
     const [currentVideoId, setCurrentVideoId] = useState(null);
-
-    let { setTranscriptData } = useContext(HomePageContext);
 
     const messageSetter = (msg, type = "error") => {
         setMessage({ message: msg, type: type });
@@ -21,7 +18,7 @@ const VideoInputForm = () => {
     const transcriptHandler = (data, videoId) => {
         setCurrentVideoId(videoId);
         messageSetter("", null);
-        setTranscriptData({ videoId: videoId, transcript: data });
+        props.setTranscriptData({ videoId: videoId, transcript: data });
     }
 
     const onSubmitHandler = () => {
