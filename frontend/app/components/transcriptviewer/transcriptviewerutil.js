@@ -11,16 +11,16 @@ const formatTime = (timeInSeconds) => {
     return `${hours}:${minutes}:${seconds}`;
 };
 
-const getGroupedTranscript = (transcript) => {
-    return transcript.reduce((acc, item) => {
-        const time = Math.floor(item.start);
-        if (!acc[time]) {
-            acc[time] = [];
+const groupTranscriptByTime = (transcripts) => {
+    return transcripts.reduce((groupedTranscript, line) => {
+        const timeKey = Math.floor(line.start);
+        if (!groupedTranscript[timeKey]) {
+            groupedTranscript[timeKey] = [];
         }
-        acc[time].push(item);
-        return acc;
+        groupedTranscript[timeKey].push(line);
+        return groupedTranscript;
     }, {});
-}
+};
 
 const getHighlightColor = (currentTime, line) => {
     return currentTime >= Math.floor(line.start) &&
@@ -33,7 +33,7 @@ const getHighlightColor = (currentTime, line) => {
 
 const TranscriptViewerUtil = {
     formatTime: formatTime,
-    getGroupedTranscript: getGroupedTranscript,
+    groupTranscriptByTime: groupTranscriptByTime,
     getHighlightColor: getHighlightColor
 };
 

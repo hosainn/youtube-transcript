@@ -37,7 +37,7 @@ const renderHighlightedLine = (lines, currentTime) => {
 }
 
 const renderGroupTranscript = (currentTime, transcript) => {
-    let groupedTranscript = TranscriptViewerUtil.getGroupedTranscript(transcript);
+    let groupedTranscript = TranscriptViewerUtil.groupTranscriptByTime(transcript);
     return (
         <div id="liveTranscriptContainer">
             {Object.entries(groupedTranscript).map(([time, lines], index) => (
@@ -79,7 +79,7 @@ const TranscriptViewer = () => {
                     const time = playerRef.current.getCurrentTime();
                     setCurrentTime(Math.floor(time));
                 }
-            }, 100);
+            }, 900);
             return () => clearInterval(interval);
         }
 
