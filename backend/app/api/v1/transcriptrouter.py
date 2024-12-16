@@ -1,5 +1,5 @@
 from fastapi import APIRouter, Request, Depends, BackgroundTasks
-from transcriptcontroller import validate_video_id, get_youtube_transcript
+from transcriptcontroller import get_youtube_transcript
 from database.session import get_db
 from sqlalchemy.orm import Session
 from transcriptschema import Transcript
@@ -10,7 +10,7 @@ router = APIRouter(prefix="/v1/transcirpt")
 async def get_transcript(
     request: Request,
     background_task: BackgroundTasks,
-    video_id: str = Depends(validate_video_id),
+    video_id: str,
     db: Session = Depends(get_db)
 ):
     transcripts = get_youtube_transcript(

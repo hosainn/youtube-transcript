@@ -13,16 +13,6 @@ from youtube_transcript_api import (
 from config.logconfig import logger
 from transcriptschema import Transcript
 
-VIDEO_ID_REGEX = re.compile(r'^[a-zA-Z0-9_-]{11}$')
-
-def validate_video_id(video_id: str) -> str:
-    if not VIDEO_ID_REGEX.match(video_id):
-        raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST,
-            detail="Invalid video id"
-        )
-    return video_id
-
 def save_transcripts_history(
     video_id: str, transcript: Transcript, ip_address: str, db: Session
 ):
