@@ -5,7 +5,7 @@ const verifyYoutubeUrl = (url) => {
         return null;
     }
     let videoId = extractor[3];
-    if (videoId && videoId.length === 11) {
+    if (videoId) {
         return videoId
     }
     return null;
